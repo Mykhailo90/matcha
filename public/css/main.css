@@ -1,0 +1,52 @@
+.main_name{
+  width: 100%;
+  text-align: center;
+  margin-bottom: 30px;
+}
+#name_site{
+  margin-top: 40px;
+}
+.wrapper_banner{
+  width: 100%;
+  background-repeat: no-repeat;
+  background-image: url("../img/fon_102.jpg");
+  background-size: cover;
+  min-height: 800px;
+}
+.content_container{
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+.text_info_block{
+  text-align: center;
+  font-size: 24px;
+  font-style: italic;
+  font-weight: bold;
+  color: #793131;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.foto_block{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
+}
+.card{
+  margin-bottom: 20px;
+}
+.card-body{
+  text-align: center;
+  vertical-align: middle;
+  height: 80px;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .main_name{
+    display: none;
+  }
+}
