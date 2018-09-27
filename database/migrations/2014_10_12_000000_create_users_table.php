@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('city')->default('none');
             $table->string('longitude')->default('none');
             $table->string('latitude')->default('none');
-            $table->string('avatar')->default('none');
+            $table->string('avatar')->default('/img/incognito.png');
             $table->string('short_info')->default('none');
             $table->integer('age')->default(18);
             $table->date('birth_date')->default('1977-10-10');

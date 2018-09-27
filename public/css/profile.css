@@ -1,0 +1,21 @@
+.content_wrap{
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.cont_header{
+    width: 100%;
+    text-align: center;
+}
+.cont_img{
+    width: 20%;
+}
+.cont_info{
+    width: 75%;
+    padding: 15px;
+}
+.user_img{    
+    width: 250px;
+    height: 250px;
+}

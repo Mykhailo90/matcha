@@ -18,8 +18,8 @@
           <div class="card" style="width: 15rem;">
             <img class="card-img-top" src="{{ $user->avatar }}" alt="Card image cap">
             <div class="card-body">
-              <h5>{{ $user->name }}</h5>
-              <p class="card-text">City - {{ $user->city }}, Dist - {{ $user->distance }}</p>
+              <h6>{{ $user->name }}</h6>
+              <p class="card-text">{{ $user->city }}, {{ $user->distance }}</p>
             </div>
           </div>
         @endforeach
