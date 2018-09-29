@@ -21,9 +21,28 @@ class MyProfileController extends Controller
 
     public function imageUpdate(Request $request)
     {
-        $path = $request->file('image')->store('image');
-        dd($path);
-            return $path;
+        if ($request->hasFile('image'))
+        {
+            $fileName = $request->file('image')->getClientOriginalName();
+            $user = Auth::user();
+            $ald_avatar = explode("/", $user->avatar)[3];
+
+
+            if(is_file('app/public/images/'.$ald_avatar))
+            {
+                unlink(storage_path('app/public/images/'.$ald_avatar));
+            }
+
+            $fileName = $user->id . '_' . $fileName;
+            
+            $path = $request->file('image')->storeAs('public/images', $fileName);
+            $path = '/storage/images/' . $fileName;
+            
+            $user->avatar = $path;
+            $user->save();
+            return "ok";
+        }
+       
     }
 
     public function updateProfile(Authenticatable $user)

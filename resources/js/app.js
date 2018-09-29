@@ -8,6 +8,7 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+// const axios = require('axios');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -15,10 +16,12 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
-Vue.component('prop-component', require('./components/PropComponent.vue'));
-Vue.component('ajax-component', require('./components/AjaxComponent.vue'));
+Vue.component('load-foto', require('./components/LoadFoto.vue'));
+// Vue.component('prop-component', require('./components/PropComponent.vue'));
+// Vue.component('ajax-component', require('./components/AjaxComponent.vue'));
+// Vue.component('test-comp', require('./components/TestComponent.vue'));
 
-const app = new Vue({
-    el: '#app'
-});
+
+
+
+
