@@ -12,6 +12,7 @@
 
                         <div class="modal-body">
                             <input class="btn btn-primary" id="file" type="file" name="image">
+            
                         </div>
       
                         <div class="modal-footer">
@@ -25,6 +26,7 @@
     window.onload = function(){
         const app = new Vue({
         el: '#app',
+       
         });
     }
 </script>

@@ -25,6 +25,10 @@
     <div class="row content_wrap">
         <div class="cont_img">           
             <img class="user_img" src="{{ $fields->avatar }}" alt="avatar" data-toggle="modal" data-target="#exampleModal">
+            <form id="uploadForm" method="post" enctype='multipart/form-data'>
+            <input class="btn btn-primary" id="file" type="file" name="image">
+            <button id="load_foto" type="submit" class="btn btn-primary" onclick="btn_load();">Load</button>
+            </form>
         </div>
        
         
@@ -93,7 +97,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div id="app">
-                        <load-foto></load-foto>
+                        <!-- <load-foto></load-foto> -->
                     </div>
                 </div>
             </div>
