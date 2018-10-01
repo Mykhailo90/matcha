@@ -8,14 +8,43 @@
     width: 100%;
     text-align: center;
 }
+
 .cont_img{
-    width: 20%;
+  width: 300px;
+  margin-bottom: 20px;
 }
 .cont_info{
-    width: 75%;
     padding: 15px;
 }
 .user_img{    
     width: 250px;
     height: 250px;
+}
+
+.row{
+    justify-content: space-around;
+}
+.row h5{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+.file-upload {
+    position: relative; /* Даем возможность делать позиционирование, внутри данного элемента */
+    overflow: hidden; /* Все что выходит за пределы - скрываем */   
+}
+
+.file-upload input[type="file"]{
+   display: none; /* Обязательно скрываем настоящий Input File */
+}
+.file-upload label {
+    /* Растягиваем label на всю возможную площадь блока .file-upload */
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
 }

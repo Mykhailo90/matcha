@@ -13,11 +13,12 @@
 
 Route::get('/', 'WelcomeController@index')->name('start');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
-Route::get('/my_profile', 'MyProfileController@index')->name('profile')->middleware('auth');
-Route::post('/my_profile/change_avatar', 'MyProfileController@imageUpdate')->name('imageUpdate')->middleware('auth');
+
+Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
+Route::get('/my_profile', 'MyProfileController@index')->name('profile')->middleware('verified');
+Route::post('/my_profile', 'MyProfileController@ajaxImageUploadPost')->name('ajaxImageUpload')->middleware('auth');
 
 Route::get('/start', 'StartController@index');
 Route::get('/start/get-json', 'StartController@getJson');
