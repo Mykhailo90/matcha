@@ -12,6 +12,7 @@
 .cont_img{
   width: 300px;
   margin-bottom: 20px;
+  text-align: center;
 }
 .cont_info{
     padding: 15px;
@@ -47,4 +48,18 @@
     width: 100%;
     height: 100%;
     cursor: pointer;
+}
+
+.modal-body{
+    text-align: center;
+}
+#pref_block{
+    margin-top: 25px;
+}
+#map{
+    margin-top: 25px;
+    height: 300px;
+}
+#my_location{
+    margin-top: 25px;
 }

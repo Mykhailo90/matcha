@@ -43,8 +43,6 @@ class MyProfileController extends Controller
         {
             unlink(public_path('images') . '/' . $ald_avatar);
         }
-// Возможно переименовать метод из модели
-        // User::create($input);
 
         $user->$title = 'images/' . $input['image'];
         $user->save();
@@ -52,8 +50,45 @@ class MyProfileController extends Controller
         return redirect('/my_profile');
       }
 
-
       return response()->json(['error'=>$validator->errors()->all()]);
+    }
+
+
+
+
+    public function ajaxImageDeletePost(Request $request)
+    {
+        $user = Auth::user();
+        $title = $request->title;
+        $ald_avatar = explode("/", $user->$title)[1];
+
+        if(is_file(public_path('images') . '/' . $ald_avatar))
+        {
+            unlink(public_path('images') . '/' . $ald_avatar);
+        }
+
+        $user->$title = '/img/incognito.png';
+        $user->save();
+        return redirect('/my_profile');
+     
+    }
+
+    public function ajaxUpdateInfoPost(Request $request)
+    {
+        $user = Auth::user();
+        // dd($request);
+
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->age = $request->age;
+        $user->gender = $request->gender;
+        $user->sexpreferences = $request->pref;
+        $user->country = $request->country;
+        $user->city = $request->city;
+        $user->latitude = $request->latitude;
+        $user->longitude = $request->longitude;
+        $user->save();
+        return redirect('/my_profile');    
     }
 }
 
