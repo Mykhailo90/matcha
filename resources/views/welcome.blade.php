@@ -15,6 +15,7 @@
       </div>
       <div class="foto_block">
         @foreach ($nearest_people as $user)
+        <a href="/profile/{{ $user->id }}">
           <div class="card" style="width: 15rem;">
             <img class="card-img-top" src="{{ $user->avatar }}" alt="Card image cap">
             <div class="card-body">
@@ -22,6 +23,7 @@
               <p class="card-text">{{ $user->city }}, {{ $user->distance }}</p>
             </div>
           </div>
+         </a>
         @endforeach
       </div>
 

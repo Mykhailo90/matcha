@@ -38,21 +38,20 @@ class WelcomeController extends Controller
 
     private function getLocationInfo(){
         // Устанавливаем позицию пользователя для первичного отбора анкет в качестве первичного предложения
-        // $user_ip = Request::ip();
-        // if ($user_ip == "127.0.0.1") {
-            $externalContent = file_get_contents('https://api.2ip.ua/geo.json?ip=');
-            // dd($externalContent);
-            // preg_match('/Current IP Address: \[?([:.0-9a-fA-F]+)\]?/', $externalContent, $m);
-            // $externalIp = $m[1];
-            // $user_ip = $externalIp;
-        // }
-        // $geo = unserialize($externalContent);
-        // dd($geo);
-        $externalContent = json_decode($externalContent);
-        $info['country'] = $externalContent->country;
-        $info['city'] = $externalContent->city;
-        $info['latitude'] = $externalContent->latitude;
-        $info['longitude'] = $externalContent->longitude;
+        
+            // $externalContent = file_get_contents('https://api.2ip.ua/geo.json?ip=');
+       
+        // $externalContent = json_decode($externalContent);
+        // $info['country'] = $externalContent->country;
+        // $info['city'] = $externalContent->city;
+        // $info['latitude'] = $externalContent->latitude;
+        // $info['longitude'] = $externalContent->longitude;
+
+        
+        $info['country'] = "Ukraine";
+        $info['city'] = "Kyiv";
+        $info['latitude'] = "50.469227";
+        $info['longitude'] = "30.462262";
         return $info;
     }
 
