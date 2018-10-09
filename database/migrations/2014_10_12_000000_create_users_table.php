@@ -39,7 +39,7 @@ class CreateUsersTable extends Migration
             $table->integer('fame_rating')->default(0);
             $table->string('first_name')->default('none');
             $table->string('last_name')->default('none');
-            $table->timestamps();
+            $table->timestamps('last_visit')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
 

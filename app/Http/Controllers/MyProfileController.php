@@ -9,14 +9,20 @@ use Illuminate\Routing\Controller;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Models\Interest;
+use App\Http\Models\User_interest;
 
 class MyProfileController extends Controller
 {
     public function index(){
         $fields = Auth::user();
-        // dd($fields);
+        $interests = $fields->interests;
+   
+        
         return view('profile', [
-            'fields' => $fields
+            'fields' => $fields,
+            'interests' => $interests,
+            // 'all_interests' => $arg,
         ]);
     }
 
@@ -54,6 +60,16 @@ class MyProfileController extends Controller
     }
 
 
+    public function ajaxLoadInterests()
+    {
+             $all_interests = Interest::all();
+        $arg = [];
+        foreach ($all_interests as $key => $value) {
+            $arg[] = $value->interst_name;
+        }
+
+        return $arg;
+    }
 
 
     public function ajaxImageDeletePost(Request $request)
@@ -89,6 +105,23 @@ class MyProfileController extends Controller
         $user->longitude = $request->longitude;
         $user->save();
         return redirect('/my_profile');    
+    }
+
+    public function delInterest(Request $request){
+        if ($request->id){
+            $user = Auth::user();
+            User_interest::del_user_interest($user->id, $request->id);
+            return redirect('/my_profile');   
+        }
+    }
+
+    public function addInterest(Request $request){
+        if ($request->add_interest){
+            $user = Auth::user();
+            $interest_id = Interest::get_interest_id($request->add_interest);
+            User_interest::add_user_interest($user->id, $interest_id);
+            return redirect('/my_profile');   
+        }
     }
 }
 
