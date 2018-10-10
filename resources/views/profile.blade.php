@@ -1,6 +1,4 @@
 @extends('layouts.app')
-<meta name="csrf-token" content="{{ csrf_token() }}">
-
 <link rel="stylesheet" type="text/css" href="{{ asset('css/profile.css') }}" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -10,13 +8,11 @@
 
 
 <style>
-
 .autocomplete {
   /*the container must be positioned relative:*/
   position: relative;
   display: inline-block;
 }
-
 .autocomplete-items {
   position: absolute;
   border: 1px solid #d4d4d4;
@@ -28,19 +24,16 @@
   left: 0;
   right: 0;
 }
-
 .autocomplete-items div {
   padding: 10px;
   cursor: pointer;
   background-color: #fff; 
   border-bottom: 1px solid #d4d4d4; 
 }
-
 .autocomplete-items div:hover {
   /*when hovering an item:*/
   background-color: #e9e9e9; 
 }
-
 .autocomplete-active {
   /*when navigating through the items using the arrow keys:*/
   background-color: DodgerBlue !important; 
@@ -66,7 +59,6 @@
   height: 50px;
   margin-bottom: 15px;
 }
-
 </style>
 
 
@@ -80,81 +72,16 @@
 
 @section('content')
 <div class="container">
-
     <div class="cont_header">
         <h1>{{$fields->name}} Profile</h1>
     </div>
-<<<<<<< HEAD
-
-    <div class="cont_info">
-        @if ($fields->avatar == '/img/incognito.png')
-            <div class="alert alert-danger" role="alert">
-                <p>Чтобы открылась возможность просматривать анкеты пользователей необоходимо заполнить анкету и добавить фотографию!</p>
-            </div>
-        @endif
-        @if ($fields->avatar != '/img/incognito.png')
-            <div class="alert alert-primary" role="alert">
-                <p>Чем больше информации вы разместите - тем выше Ваш рейтинг!</p>
-            </div>
-        @endif            
-    </div>
-
-    <div class="row content_wrap">
-        <div class="cont_img">           
-            <img class="user_img" src="{{ $fields->avatar }}" alt="avatar" data-toggle="modal" data-target="#exampleModal">
-            <form id="uploadForm" method="post" enctype='multipart/form-data'>
-            <input class="btn btn-primary" id="file" type="file" name="image">
-            <button id="load_foto" type="submit" class="btn btn-primary" onclick="btn_load();">Load</button>
-            </form>
-        </div>
-       
-        
-        <div class="prof_info">
-            <p><strong>First name: </strong>{{$fields->first_name}}</p>
-            <p><strong>Last name: </strong>{{$fields->last_name}}</p>
-            <p><strong>Age: </strong>{{$fields->age}}</p>
-            <p><strong>City: </strong>{{$fields->city}}</p>
-            <p><strong>Gender: </strong>{{$fields->gender}}</p>
-            <p><strong>Sex-preferences: </strong>{{$fields->sexpreferences}}</p>
-            <p><strong>My raiting: </strong>{{$fields->raiting}}</p>
-            <button type="button" class="btn btn-primary btn-lg btn-block">Update</button>
-        </div>
-        
-    </div>
-   
-    <div class="interests">
-        <div class="row">
-            <h5>My interests: </h5>
-        </div>
-        <div class="row">
-           
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Sint, odit! Earum amet eaque qui, provident atque, ipsam, porro maxime error
-             fugit rerum quaerat quis quasi et eum molestiae a sed!</p>
-            
-        </div>
-        <button type="button" class="btn btn-primary btn-lg btn-block">Change interests</button>   
-    </div>
-    <div class="users_foto">
-        <div class="row">
-            <h5>My best foto: </h5>
-        </div>
-        
-        <div class="row">
-
-        <div class="card" style="width: 12rem;">
-            <img class="card-img-top" src="{{ asset('img/incognito.png') }}" alt="foto">
-=======
 <?php
-
 // Динамическое определение содержания текста кнопок
-
   $ava = ($fields->avatar == "/img/incognito.png") ? "Add Image" : "Change IMG";
   $photo1 = ($fields->photo1 == "/img/incognito.png") ? "Add Image" : "Change IMG";
   $photo2 = ($fields->photo2 == "/img/incognito.png") ? "Add Image" : "Change IMG";
   $photo3 = ($fields->photo3 == "/img/incognito.png") ? "Add Image" : "Change IMG";
   $photo4 = ($fields->photo4 == "/img/incognito.png") ? "Add Image" : "Change IMG";
-
   // Динамическое определение геолокации пользователя для автозаполнения
   // $externalContent = file_get_contents('https://api.2ip.ua/geo.json?ip=');
   // $externalContent = json_decode($externalContent);
@@ -162,12 +89,10 @@
   // $longitude = $externalContent->longitude;
   // $country = $externalContent->country;
   // $city = $externalContent->city;
-
   $latitude = "50.469227";
   $longitude = "30.462262";
   $country = "Ukraine";
   $city = "Kyiv";
-
 ?>
 
  <!-- Блок информационных сообщений (рекомендации заполнить поля анкеты) -->
@@ -186,26 +111,10 @@
             <div class="alert alert-danger print-error-msg" style="display:none">
                 <ul></ul>
             </div>     
->>>>>>> 3665faefc611efe2a2e2528d15c6ae3f07212391
         </div>
   <!-- ***************************************************************************   -->
     <div class="content_wrap">
 
-<<<<<<< HEAD
-        <div class="card" style="width: 12rem;">
-            <img class="card-img-top" src="{{ asset('img/incognito.png') }}" alt="foto">
-        </div>
-
-        <div class="card" style="width: 12rem;">
-            <img class="card-img-top" src="{{ asset('img/incognito.png') }}" alt="foto">
-        </div>
-
-        <div class="card" style="width: 12rem;">
-            <img class="card-img-top" src="{{ asset('img/incognito.png') }}" alt="foto">
-        </div>
-
-        </div>
-=======
 <!-- форма обработки главного фото профиля -->
         <div class="cont_img">
           <div class="file-upload">
@@ -388,7 +297,6 @@
               </label>
             </div>
           </label>
->>>>>>> 3665faefc611efe2a2e2528d15c6ae3f07212391
         
           <div class="form-group">
             <label id="pref_block" for="sel1">Who are you looking for? (Your sex preferences):</label>
@@ -414,12 +322,6 @@
               <input type="text" class="form-control" id="my_country" name="country" value="{{$country}}">
             </div>
 
-<<<<<<< HEAD
-    </div>
-
-    <!-- <button type="button" class="btn btn-success btn-lg btn-block">Сохранить изменения</button> -->
-</div>
-=======
             <div class="form-group">
               <label for="my_city">City:</label>
               <input type="text" class="form-control" id="my_city" name="city" value="{{$city}}">
@@ -524,28 +426,11 @@
 
 <!-- ********************************************************************************* -->
 
->>>>>>> 3665faefc611efe2a2e2528d15c6ae3f07212391
 
-
-       
 @endsection
 
-<<<<<<< HEAD
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div id="app">
-                        <!-- <load-foto></load-foto> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-       <script src="{{ asset('js/profile.js') }}"></script>
-=======
 
 <script type="text/javascript">
-
-
 function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
@@ -642,8 +527,6 @@ function autocomplete(inp, arr) {
       closeAllLists(e.target);
   });
 }
-
-
 function interest_change(){
    var request = new XMLHttpRequest();
   request.open('POST', '/my_profile/get_interests', true);
@@ -658,7 +541,6 @@ function interest_change(){
    }
   }  
 };
-
 window.onload = function(){
   var x = document.querySelectorAll('.upload-image');
   var del_btn = document.querySelectorAll('.del-image');
@@ -671,7 +553,6 @@ window.onload = function(){
     }
       
   };
-
   for (var i = 0, image; image = del_btn[i]; i++)
     image.onclick = function(e){
       if (e.path[1].children[0].children[0].children[2].src == "http://localhost:8000/img/incognito.png")
@@ -683,47 +564,34 @@ window.onload = function(){
         e.path[1].children[0].children[0].action = "{{ route('ajaxImageDelete') }}";     
   };
 }
-
-
-
 function change_main_info(){
-
   var map;
   var uluru = {
     lat: {{$latitude}},
     lng: {{$longitude}}
     };
   initMap(uluru);
-
-
   var slider = document.getElementById("formControlRange");
   var output = document.getElementById("age");
-
   slider.oninput = function() {
     output.innerHTML = this.value;
   }
 }
-
 function initMap(uluru) {
   map = new google.maps.Map(document.getElementById('map'), {zoom: 10, center: uluru});
 // The marker, positioned at Uluru
   var marker = new google.maps.Marker({position: uluru, map: map});
   }
-
-
 function open_loc_info() {
   var loc_info = document.querySelector('#my_location');
   loc_info.classList.toggle("d-none");
 }
-
 function ajax_my_info() {
   setTimeout(function(){ location.reload(); }, 1000);
   ;
 }
-
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbbdTf3JfUUQDE1ohX5o0AiV6dmfXEaQM&callback=initMap"
     async defer></script>
 
 <!-- AIzaSyCbbdTf3JfUUQDE1ohX5o0AiV6dmfXEaQM          my googleApiKey-->
->>>>>>> 3665faefc611efe2a2e2528d15c6ae3f07212391

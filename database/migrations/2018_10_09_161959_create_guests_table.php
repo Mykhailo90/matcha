@@ -17,7 +17,7 @@ class CreateGuestsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('who_id');
             $table->unsignedInteger('user_to_id');
-            $table->timestamp('when');
+            $table->timestamps();
         });
     }
 
