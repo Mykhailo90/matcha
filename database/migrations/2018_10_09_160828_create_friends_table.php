@@ -17,7 +17,7 @@ class CreateFriendsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_send_id');
             $table->unsignedInteger('user_to_id');
-            $table->Integer('status');
+            $table->Integer('status')->default('0');
         });
     }
 

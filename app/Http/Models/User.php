@@ -6,6 +6,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use Illuminate\Support\Facades\Cache;
+
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
@@ -32,7 +34,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function interests()
     {
-        // return $this->belongsToMany(User_interest::class, 'user_interests', 'id', 'user_id');
         return $this->hasManyThrough('App\Http\Models\Interest', 'App\Http\Models\User_interest', 'user_id', 'user_interest_id', 'id', 'interest_id');
     }
+
+    public function isOnline(){
+
+        return Cache::has('user-online-' .$this->id);
+    }
+
 }

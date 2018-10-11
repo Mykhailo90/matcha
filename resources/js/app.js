@@ -7,7 +7,7 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+// window.Vue = require('vue');
 // const axios = require('axios');
 
 /**
@@ -16,7 +16,7 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('load-foto', require('./components/LoadFoto.vue'));
+// Vue.component('load-foto', require('./components/LoadFoto.vue'));
 // Vue.component('prop-component', require('./components/PropComponent.vue'));
 // Vue.component('ajax-component', require('./components/AjaxComponent.vue'));
 // Vue.component('test-comp', require('./components/TestComponent.vue'));

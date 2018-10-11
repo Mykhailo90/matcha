@@ -62,14 +62,6 @@
 </style>
 
 
-
-
-
-
-
-
-
-
 @section('content')
 <div class="container">
     <div class="cont_header">

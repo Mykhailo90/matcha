@@ -2,11 +2,6 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('css/profile.css') }}" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-
-
-
-
-
 <style>
 #map{
 	margin-bottom: 50px;
@@ -14,34 +9,98 @@
 .cont_header{
 	margin-bottom: 25px;
 }
-#status{
-	color: brown;
+#status_online{
+	color: green;
 }
-
+#last_visit{
+  color: brown;
+}
+#btn_div{
+    display: flex;
+    flex-wrap: nowrap;
+}
+.add_f{
+    width: 50%;
+}
+.add_f .btn{
+    width: 100%;
+}
+.file-upload{
+    margin-bottom: 20px;   
+}
 </style>
-
-
-
-
-
-
-
-
-
 
 @section('content')
 <div class="container">
     <div class="cont_header">
         <h1>{{$fields->name}} Profile</h1>
-        <h6 id="status">Статус ОНЛАЙН или дата посленднего действия</h6>
+        @if($fields->isOnline())
+          <h6 id="status_online">ОНЛАЙН</h6>
+        @else
+          <h6 id="last_visit">{{ $fields->updated_at }}</h6>
+        @endif
+        <div class="cont_info">
+             @if ($ignore_status == 1)
+                <div class="alert alert-danger" role="alert">
+                    Обоюдный запрет на общение!
+                 </div>
+            @elseif ($ignore_status == 2)
+            <div class="alert alert-danger" role="alert">
+                    Вы добавили данного пользователя в игнор!
+                 </div>
+            @elseif ($ignore_status == 3)
+                <div class="alert alert-danger" role="alert">
+                    Пользователь добавил Вас в игнор!
+                 </div>
+            @endif
+            @if ($friend_status == 1)
+                <div class="alert alert-primary" role="alert">
+                    Вами было отправлено приглашение на добавление в друзья!
+                 </div>
+            @elseif ($friend_status == 3)
+                <div class="alert alert-primary" role="alert">
+                    Пользоваетль отправил Вам запрос на добавление в друзья!
+                 </div>
+            @endif
+
+        </div>
     </div>
 <?php
 
-// Динамическое определение содержания текста кнопок Добавить в Друзья/Удалить из друзей
+// Формирование кнопок
 // Добавить в Игнор/Убрать из черного списка
 
-  $add_friend = ($fields->avatar == "/img/incognito.png") ? "From friend" : "In friend";
-  $add_ignor = ($fields->photo1 == "/img/incognito.png") ? "From ignore" : "In ignore";
+    $add_friend_btn = '<form class="add_f" action="' . route('addFriend') . '" enctype="multipart/form-data" method="POST">' .
+                    '<input type="hidden" name="_token" value=" ' . csrf_token() . '">' .
+                    '<input type="hidden" name="user_to" value="' . $fields->id .'">' .
+                    '<button class="btn btn-success" type="submit">Add Friend</button>' .
+                    '</form>';
+    $del_friend_btn = '<form class="add_f" action="' . route('delFriend') . '" enctype="multipart/form-data" method="POST">' .
+                    '<input type="hidden" name="_token" value=" ' . csrf_token() . '">' .
+                    '<input type="hidden" name="user_to" value="' . $fields->id .'">' .
+                    '<button class="btn btn-danger" type="submit">Del Friend</button>' .
+                    '</form>';
+    $del_invitation_btn = '<form class="add_f" action="' . route('delInvitation') . '" enctype="multipart/form-data" method="POST">' .
+                    '<input type="hidden" name="_token" value=" ' . csrf_token() . '">' .
+                    '<input type="hidden" name="user_to" value="' . $fields->id .'">' .
+                    '<button class="btn btn-danger" type="submit">Del Invitation</button>' .
+                    '</form>';
+    $get_invitation_btn = '<form class="add_f" action="' . route('getInvitation') . '" enctype="multipart/form-data" method="POST">' .
+                    '<input type="hidden" name="_token" value=" ' . csrf_token() . '">' .
+                    '<input type="hidden" name="user_to" value="' . $fields->id .'">' .
+                            '<button class="btn btn-success" type="submit">Get Invitation</button>' .
+                            '</form>';
+    
+    $add_ignore_btn = '<form class="add_f" action="' . route('addIgnore') . '" enctype="multipart/form-data" method="POST">' .
+                    '<input type="hidden" name="_token" value=" ' . csrf_token() . '">' .
+                    '<input type="hidden" name="user_to" value="' . $fields->id .'">' .
+                    '<button class="btn btn-warning" type="submit">Add In Ignore</button>' .
+                    '</form>';
+    $del_ignore_btn = '<form class="add_f" action="' . route('delIgnore') . '" enctype="multipart/form-data" method="POST">' .
+                    '<input type="hidden" name="_token" value=" ' . csrf_token() . '">' .
+                    '<input type="hidden" name="user_to" value="' . $fields->id .'">' .
+                    '<button class="btn btn-primary" type="submit">Del Ignore</button>' .
+                    '</form>';
 
 ?>
 
@@ -50,21 +109,39 @@
 <!-- форма обработки главного фото профиля -->
         <div class="cont_img">
           <div class="file-upload">
-            
-              <label> 
-                <input type="file" name="image" class="form-control">
-                <input type="hidden" name="title" value="avatar">
-              </label>
               <img class="user_img" src="{{ $fields->avatar }}" alt="avatar">
           </div>
-          <form action="#" enctype="multipart/form-data" method="POST">
-              	<input type="hidden" name="_token" value="{{ csrf_token() }}">
-          		<button class="btn btn-success upload-image" type="submit">{{ $add_friend }}</button>
-      		</form>
-      			<form action="#" enctype="multipart/form-data" method="POST">
-              		<input type="hidden" name="_token" value="{{ csrf_token() }}">
-          			<button class="btn btn-danger del-image" type="submit">{{ $add_ignor }}</button>
-            	</form>
+
+
+          @if($my_id != $fields->id)
+          <div id="btn_div">
+
+        <?php
+
+        // Добавляем модуль управления состоянием дружбы
+            if ($friend_status == 0){
+                echo $add_friend_btn;
+            }
+            elseif ($friend_status == 1){
+                echo $del_invitation_btn;
+            }
+            elseif ($friend_status == 2){
+                echo $get_invitation_btn;
+            }
+            else{
+                echo $del_friend_btn;
+            }
+// Добавляем модуль управления состоянием таблицы игнора
+            if ($ignore_status == 1 || $ignore_status == 2){
+                 echo $del_ignore_btn;
+            }
+            else{
+                echo $add_ignore_btn;
+            }
+
+        ?> 
+        </div>
+        @endif
         </div>
   <!-- ********************************************************************************** -->
 
@@ -111,39 +188,53 @@
     <div class="row">
         <h5>{{$fields->name}} best foto: </h5>
     </div>
-    
-    <div class="row">
+     <div class="row">
 
-    <div class="cont_img">
-    <div class="file-upload">
-        <img class="user_img" src="{{ $fields->photo1 }}" alt="photo1">
-    </div>
-  </div>
+    <?php
+      $res = 0;
+      if ($fields->photo1 != '/img/incognito.png'){
+        $flag = '<div class="cont_img">' .
+                  '<div class="file-upload">'.
+                  '<img class="user_img" src="' . $fields->photo1 .'" alt="photo1">'.
+                  '</div>' .
+                  '</div>';
+        $res += 1;
+        echo $flag;
+      }
+        if ($fields->photo2 != '/img/incognito.png'){
+        $flag = '<div class="cont_img">' .
+                  '<div class="file-upload">'.
+                  '<img class="user_img" src="' . $fields->photo2 .'" alt="photo2">'.
+                  '</div>' .
+                  '</div>';
+        $res += 1;
+        echo $flag;
+      }
+      if ($fields->photo3 != '/img/incognito.png'){
+        $flag = '<div class="cont_img">' .
+                  '<div class="file-upload">'.
+                  '<img class="user_img" src="' . $fields->photo3 .'" alt="photo3">'.
+                  '</div>' .
+                  '</div>';
+        $res += 1;
+        echo $flag;
+      }
+      if ($fields->photo4 != '/img/incognito.png'){
+        $flag = '<div class="cont_img">' .
+                  '<div class="file-upload">'.
+                  '<img class="user_img" src="' . $fields->photo4 .'" alt="photo4">'.
+                  '</div>' .
+                  '</div>';
+        $res += 1;
+        echo $flag;
+      }      
+      if ($res == 0){
+        echo '<div class="alert alert-primary">Пользователь еще не добавил фотографии</div>';
+      }
+    ?>
 
-  <div class="cont_img">
-  <div class="file-upload">
-      <img class="user_img" src="{{ $fields->photo2 }}" alt="photo2">
-  </div>
- 
-</div>
 
-<div class="cont_img">
-<div class="file-upload">
-    <img class="user_img" src="{{ $fields->photo3 }}" alt="photo3">
-</div>
-
-</div>
-
-<div class="cont_img">
-<div class="file-upload">
   
-    <img class="user_img" src="{{ $fields->photo4 }}" alt="photo4">
-</div>
-
-</div>
-
-    </div>
-    
 
 </div>
 
@@ -186,12 +277,6 @@
   		};
   		initMap(uluru);
   	};
-  
-
-
-
-
-
 </script>
 
 

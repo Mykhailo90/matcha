@@ -37,7 +37,7 @@ class MyProfileController extends Controller
         {
             unlink(public_path('images') . '/' . $ald_avatar);
         }
-        $user->$title = 'images/' . $input['image'];
+        $user->$title = '/images/' . $input['image'];
         $user->save();
         return redirect('/my_profile');
       }

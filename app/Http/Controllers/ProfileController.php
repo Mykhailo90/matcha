@@ -28,6 +28,50 @@ class ProfileController extends Controller
             'interests' => $interests,
             'friend_status' => $friend_status,
             'ignore_status' => $ignore_status,
+            'my_id' => $who->id,
         ]);
     }
+
+    public function add_friend(request $Request){
+        $who = Auth::user();
+        $user2_id = $Request['user_to'];
+        Friends::add_friend($who->id, $user2_id);
+        return redirect()->back();
+    }
+
+    public function del_friend(request $Request){
+       $who = Auth::user();
+        $user2_id = $Request['user_to'];
+        Friends::del_friend($who->id, $user2_id);
+        return redirect()->back();
+    }
+
+    public function del_invitation(request $Request){
+        $who = Auth::user();
+        $user2_id = $Request['user_to'];
+        Friends::del_invitation($who->id, $user2_id);
+        return redirect()->back();
+    }
+
+    public function get_invitation(request $Request){
+        $who = Auth::user();
+        $user2_id = $Request['user_to'];
+        Friends::get_invitation($who->id, $user2_id);
+        return redirect()->back();
+    }
+
+    public function add_ignore(request $Request){
+        $who = Auth::user();
+        $user2_id = $Request['user_to'];
+        Ignores::add_ignore($who->id, $user2_id);
+        return redirect()->back();
+    }
+
+    public function del_ignore(request $Request){
+        $who = Auth::user();
+        $user2_id = $Request['user_to'];
+        Ignores::del_ignore($who->id, $user2_id);
+        return redirect()->back();
+    }
+
 }

@@ -47,27 +47,39 @@ class Friends extends Model
    	 	return self::NO_FRIENDS;
    }
 
-  //  public static function add_friends($who, $to_user){
-  //  	// При добавлении алгоритм
-  //  	// 1 Проверить вы друзья ?
-  //  	// 2 проверить нет ли уже отправленной заявки в друзья Вам (принять заявку!) кнопка подтвердить
-  //  	// 3 проверить нет ли уже отправленной заявки в друзья Вами (отменить заявку!) кнопка подтвердить
-  //  	// Если нет создать нужную запись в БД
-  //  	 $id = DB::table($this->table)->where('who_id', $who)
-  //  	 						  ->where('user_to_id', $to_user)
-  //  	 						  ->first();
+  public static function add_friend($who, $user2_id){
+    DB::table('friends')->insert(
+    ['user_send_id' => $who, 'user_to_id' => $user2_id]
+    );
+    Ignores::del_ignore($who, $user2_id);
+  }
 
-  //   	if (!$id){
-  //   		DB::table('guests')->insert(
-  //     		array('who_id' => $who, 'user_to_id' => $to_user, 'created_at' => $when, 'updated_at' => $when)
-  //     		);
-  //   	}
-  //   	else
-  //   	{
-  //   		DB::table('guests')
-  //           ->where('who_id', $who)
-  //  	 		->where('user_to_id', $to_user)
-  //           ->update(array('updated_at' => $when));
-		// }
-  //  }
+  public static function del_invitation($who, $user2_id){
+    DB::table('friends')->where('user_send_id', $who)
+                        ->where('user_to_id', $user2_id)
+                        ->delete();
+  }
+
+  public static function del_friend($who, $user2_id){
+    DB::table('friends')->where('user_send_id', $who)
+                        ->where('user_to_id', $user2_id)
+                        ->orWhere('user_send_id', $user2_id)
+                        ->where('user_to_id', $who)
+                        ->update(['status' => 0]);
+    self::del_invitation($who, $user2_id);
+  }
+
+  public static function get_invitation($who, $user2_id){
+     DB::table('friends')->where('user_send_id', $user2_id)
+                        ->where('user_to_id', $who)
+                        ->update(['status' => 1]);
+  }
+
 }
+
+
+
+
+
+
+

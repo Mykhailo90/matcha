@@ -12,18 +12,6 @@ function btn_load(e){
   
       }       
   })
- 
-  
-
-// axios.post('/my_profile/change_avatar', data, {
-//   headers: {
-//             'Content-Type': 'multipart/form-data',
-//   }
-// })
-// .then(function (response) {
-//   console.log(response);
-//   // alert(response.data);
-// })
 
 };
 

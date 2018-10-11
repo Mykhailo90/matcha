@@ -43,4 +43,32 @@ public static function get_ignore_status($who, $to_user){
    	 	}
    	 	return self::NO_IGNORE;
    }
+
+   public static function add_ignore($who, $user2_id){
+   
+    DB::table('ignores')->insert(
+    ['user_send_id' => $who, 'user_to_id' => $user2_id]
+    );
+
+    Friends::del_friend($who, $user2_id);
+  }
+
+  public static function del_ignore($who, $user2_id){
+   
+    DB::table('ignores')->where('user_send_id', $who)
+                        ->where('user_to_id', $user2_id)
+                        ->delete();
+  }
+
+  
+
+
+
+
+
+
+
+
+
+
 }
