@@ -29,3 +29,24 @@ Route::post('/profile/get_invitation', 'ProfileController@get_invitation')->name
 
 Route::post('/profile/add_ignore', 'ProfileController@add_ignore')->name('addIgnore')->middleware('verified');
 Route::post('/profile/del_ignore', 'ProfileController@del_ignore')->name('delIgnore')->middleware('verified');
+
+Route::get('/start', 'TestController@getIndex');
+Route::post('/start/message', 'TestController@postMessage');
+
+// Route::get('/start', function(){
+// 	event(
+// 		new \App\Events\TestEvent()
+// 	);
+// });
+
+// Route::group(['prefix' => 'ws'], function(){
+	Route::get('check-auth', function(){
+	
+		return response()->json([
+			'auth' => \Auth::check()
+		]);
+
+	// });
+
+
+});

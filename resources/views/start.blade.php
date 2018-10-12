@@ -1,63 +1,74 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row">
-    <div class="col-sm-4">
-        <h2 class="border-bottom text-center">Standart Vue+Laravel</h2>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col-sm-4">
-        <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
-            <div class="btn-group mr-2" role="group" aria-label="First group">
-                <a type="button" class="btn btn-secondary" href="#1">Example component</a>
-                <a type="button" class="btn btn-secondary" href="#2">Vue->Blade</a>
-            </div>
-        </div>
-    </div>
-</div>
+<ul class="chat">
+    @foreach($messages as $message)
+        <li>
+            <b>{{ $message->author }}</b>
+            <p>{{ $message->content }}</p>
+        </li>
+    @endforeach
+</ul>
 
-<div class="row">
-    <div class="col-sm-12">
-       <div class="owl-carousel owl-theme mt-5">
-            
-       <div class="row m-2" data-hash="3">
-                <div class=""col-md-12>
-                    <div class="card">
-                        <div class="card-body" style="min-height: 720px;">
-                            <h2 class="text-center">#3 Ajax in vue</h2>
-                            <ajax-component></ajax-component>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<hr>
 
-            <div class="row m-2" data-hash="2">
-                <div class=""col-md-12>
-                    <div class="card">
-                        <div class="card-body" style="min-height: 720px;">
-                            <h2 class="text-center">#2 Export data in Vue from Blade</h2>
-                            <prop-component :urldata="{{ json_encode($url_data) }}"></prop-component>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<form action="/start/message" method="POST">
+    {{ csrf_field() }}
+    <input type="text" name="author">
+    <br>
+    <br>
+    <textarea name="content" style="width: 100%; height: 100px"></textarea>
+    <input type="submit" value="Отправить">
+</form>
 
-            <div class="row m-2" data-hash="1">
-                <div class=""col-md-12>
-                    <div class="card">
-                        <div class="card-body" style="min-height: 720px;">
-                            <h2 class="text-center">#1 Example component</h2>
-                            <example-component></example-component>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-       </div>
-    </div>
-</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
+
+<script>
+    // Создаем переменную для подключения сокета
+    // Вызываем конструктор и передаем в нее номер порта
+    var socket = io(':6001');
+
+    socket.on('chat:message', function(data){
+        // console.log(data);
+        appendMessage(data);
+    });
+
+    function appendMessage(data){
+        $('.chat').append(
+            $('<li/>').append($('<b/>').text(data.author),
+                            $('<p/>').text(data.content)
+                    )
+            );
+    };
+
+
+    // $('form').on('submit', function(){
+    //     var text = $('textarea').val(),
+    //         msg = {message : text};
+
+    //     socket.send(msg);
+    //     appendMessage(msg);
+    //     $('textarea').val("");
+
+    //     return false;
+    // });
+
+
+    // // Устанавливаем слушателя на событие message
+
+    // socket.on('message', function(data){
+    //     appendMessage(data);
+        
+    // }).on('server-info', function(data){
+    //     console.log("From server:", data);
+    // });
+    // ЧТОБЫ ТЕСТИРОВАТЬ НЕ ЗАБЫТЬ ЗАПУСТИТЬ СЕРВЕР JS!!!
+    // node ws.server/server.js
+    // директория ws.server лежит в корне проекта!
+</script>
 
 @endsection
 
