@@ -38,19 +38,6 @@ CREATE TABLE `friends` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `guests`
---
-
-CREATE TABLE `guests` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `who_id` int(10) UNSIGNED NOT NULL,
-  `user_to_id` int(10) UNSIGNED NOT NULL,
-  `when` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `ignores`
 --
 

@@ -13,11 +13,11 @@
       <div class="conditions">
         <div class="goal">
           <ul>
-            <li><h5>Цель знакомства: </h5></li>
-            <li> <a href="#">Только дружба</a></li>
-            <li><a href="#">Секс и не более</a></li>
-            <li><a href="#">Романтические отношения</a></li>
-            <li><a href="#">Общение в интернете</a></li>
+            <li><h5>Популярные интересы: </h5></li>
+            <li> <a href="search/by_tag/14">Дружба</a></li>
+            <li><a href="search/by_tag/5">Sex</a></li>
+            <li><a href="search/by_tag/12">Романтические отношения</a></li>
+            <li><a href="search/by_tag/13">Общение в интернете</a></li>
           </ul>
         </div>
 

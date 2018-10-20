@@ -20,10 +20,10 @@ class Friends extends Model
 
    	$status = DB::table('friends')->where('user_send_id', $who)
    	 						  ->where('user_to_id', $to_user)
-   	 						  ->where('status', 1)
+   	 						  ->where('status', 3)
    							->orWhere('user_send_id', $to_user)
    							->where('user_to_id', $who)
-   							->where('status', 1)
+   							->where('status', 3)
    	 						  ->first();
    	 	if ($status){
    	 		return self::FRIENDS;
@@ -31,7 +31,7 @@ class Friends extends Model
 
    	 $status = DB::table('friends')->where('user_send_id', $who)
    	 						  ->where('user_to_id', $to_user)
-   	 						  ->where('status', 0)
+   	 						  ->where('status', 1)
    	 						   ->first();
    	 	if ($status){
    	 		return self::YOU_SEND;
@@ -39,7 +39,7 @@ class Friends extends Model
 
    	$status = DB::table('friends')->where('user_send_id', $to_user)
    							->where('user_to_id', $who)
-   							->where('status', 0)
+   							->where('status', 2)
    	 						  ->first();
    	 	if ($status){
    	 		return self::USER_SEND;
@@ -47,12 +47,19 @@ class Friends extends Model
    	 	return self::NO_FRIENDS;
    }
 
-  public static function add_friend($who, $user2_id){
-    DB::table('friends')->insert(
-    ['user_send_id' => $who, 'user_to_id' => $user2_id]
-    );
-    Ignores::del_ignore($who, $user2_id);
-  }
+//  public static function add_friend($who, $user2_id){
+//    DB::table('friends')->insert(
+//    ['user_send_id' => $who, 'user_to_id' => $user2_id, 'status' => '3']
+//    );
+//    Ignores::del_ignore($who, $user2_id);
+//  }
+
+    public static function send_invitation($who, $user2_id){
+        DB::table('friends')->insert(
+            ['user_send_id' => $who, 'user_to_id' => $user2_id, 'status' => "1"]
+        );
+        Ignores::del_ignore($who, $user2_id);
+    }
 
   public static function del_invitation($who, $user2_id){
     DB::table('friends')->where('user_send_id', $who)

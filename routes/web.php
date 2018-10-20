@@ -11,7 +11,7 @@
 */
 Route::get('/', 'WelcomeController@index')->name('start');
 Auth::routes(['verify' => true]);
-Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
+
 Route::get('/my_profile', 'MyProfileController@index')->name('profile')->middleware('verified');
 Route::post('/my_profile', 'MyProfileController@ajaxImageUploadPost')->name('ajaxImageUpload')->middleware('verified');
 Route::post('/my_profile/del_img', 'MyProfileController@ajaxImageDeletePost')->name('ajaxImageDelete')->middleware('verified');
@@ -22,7 +22,7 @@ Route::post('/my_profile/add_interest', 'MyProfileController@addInterest')->name
 Route::get('profile/{id}', 'ProfileController@showProfile')->where('id', '[0-9]+')->name('profileShow')->middleware('verified');
 
 
-Route::post('/profile/add_friend', 'ProfileController@add_friend')->name('addFriend')->middleware('verified');
+Route::post('/profile/add_friend', 'ProfileController@send_invitation')->name('addFriend')->middleware('verified');
 Route::post('/profile/del_friend', 'ProfileController@del_friend')->name('delFriend')->middleware('verified');
 Route::post('/profile/del_invitation', 'ProfileController@del_invitation')->name('delInvitation')->middleware('verified');
 Route::post('/profile/get_invitation', 'ProfileController@get_invitation')->name('getInvitation')->middleware('verified');
@@ -50,3 +50,8 @@ Route::post('/start/message', 'TestController@postMessage');
 
 
 });
+
+Route::get('/acquaintanceship', 'AcquaintanceshipController@index')->middleware('verified');
+
+Route::get('search/by_tag/{id}', 'SearchController@searchByTag')->where('id', '[0-9]+');
+

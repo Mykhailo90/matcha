@@ -38,7 +38,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="/home">Знакомства</a>
+        <a class="nav-link" href="/acquaintanceship">Знакомства</a>
       </li>
 
       <li class="nav-item dropdown">

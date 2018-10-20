@@ -32,17 +32,24 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function add_friend(request $Request){
-        $who = Auth::user();
-        $user2_id = $Request['user_to'];
-        Friends::add_friend($who->id, $user2_id);
-        return redirect()->back();
-    }
+//    public function add_friend(request $Request){
+//        $who = Auth::user();
+//        $user2_id = $Request['user_to'];
+//        Friends::add_friend($who->id, $user2_id, 1);
+//        return redirect()->back();
+//    }
 
     public function del_friend(request $Request){
        $who = Auth::user();
         $user2_id = $Request['user_to'];
         Friends::del_friend($who->id, $user2_id);
+        return redirect()->back();
+    }
+
+    public function send_invitation(request $Request){
+        $who = Auth::user();
+        $user2_id = $Request['user_to'];
+        Friends::send_invitation($who->id, $user2_id);
         return redirect()->back();
     }
 
