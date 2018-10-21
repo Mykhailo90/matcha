@@ -55,3 +55,6 @@ Route::get('/acquaintanceship', 'AcquaintanceshipController@index')->middleware(
 
 Route::get('search/by_tag/{id}', 'SearchController@searchByTag')->where('id', '[0-9]+');
 
+Route::post('search', 'SearchController@searchByParams')->middleware('verified');
+
+Route::get('/test', 'Test2Controller@index');

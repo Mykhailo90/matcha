@@ -2,10 +2,10 @@
 -- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Oct 09, 2018 at 10:01 AM
+-- Host: mysql
+-- Generation Time: Oct 21, 2018 at 09:06 AM
 -- Server version: 5.7.23
--- PHP Version: 7.1.22
+-- PHP Version: 7.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -32,8 +32,29 @@ CREATE TABLE `friends` (
   `id` int(10) UNSIGNED NOT NULL,
   `user_send_id` int(10) UNSIGNED NOT NULL,
   `user_to_id` int(10) UNSIGNED NOT NULL,
-  `status` int(11) NOT NULL
+  `status` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `guests`
+--
+
+CREATE TABLE `guests` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `who_id` int(10) UNSIGNED NOT NULL,
+  `user_to_id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `guests`
+--
+
+INSERT INTO `guests` (`id`, `who_id`, `user_to_id`, `created_at`, `updated_at`) VALUES
+(1, 637, 495, '2018-10-21 07:39:11', '2018-10-21 07:39:11');
 
 -- --------------------------------------------------------
 
@@ -72,7 +93,29 @@ INSERT INTO `interests` (`user_interest_id`, `interst_name`) VALUES
 (7, 'test1'),
 (8, 'test2'),
 (9, 'животные'),
-(10, 'коты');
+(10, 'коты'),
+(11, 'животные'),
+(12, 'коты'),
+(13, 'животные'),
+(14, 'коты'),
+(15, 'животные'),
+(16, 'коты');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `messages`
+--
+
+CREATE TABLE `messages` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `sender_id` int(10) UNSIGNED NOT NULL,
+  `receiver_id` int(10) UNSIGNED NOT NULL,
+  `msg` text COLLATE utf8_unicode_ci NOT NULL,
+  `read` tinyint(1) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -82,22 +125,23 @@ INSERT INTO `interests` (`user_interest_id`, `interst_name`) VALUES
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(17, '2014_10_12_000000_create_users_table', 1),
-(18, '2014_10_12_100000_create_password_resets_table', 1),
-(19, '2018_10_03_094150_create_interests_table', 1),
-(20, '2018_10_03_094620_create_user_interests_table', 1),
-(21, '2018_10_09_160828_create_friends_table', 2),
-(22, '2018_10_09_160843_create_ignores_table', 2),
-(23, '2018_10_09_161959_create_guests_table', 3);
+(1, '2014_10_12_000000_create_users_table', 1),
+(2, '2014_10_12_100000_create_password_resets_table', 1),
+(3, '2018_10_03_094150_create_interests_table', 1),
+(4, '2018_10_03_094620_create_user_interests_table', 1),
+(5, '2018_10_09_160828_create_friends_table', 1),
+(6, '2018_10_09_160843_create_ignores_table', 1),
+(7, '2018_10_09_161959_create_guests_table', 1),
+(8, '2018_10_12_135915_create_messages_table', 1);
 
 -- --------------------------------------------------------
 
@@ -209,7 +253,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 (630, 'sadostrich108', '57@gmail.com', '2018-09-04 12:00:57', '42453395f18c5cad74a7cc65f05ad17437e18f5b12461894fdc3546ed881042d', NULL, 'female', 'móstoles', 'ceuta', '94.1094', '77.4683', 'https://randomuser.me/api/portraits/med/men/86.jpg', '/img/incognito.png', '/img/incognito.png', '/img/incognito.png', '/img/incognito.png', 'short_info_text57', 18, '1948-11-06', 1, 1, 'girls', 50, 'daniel', 'sanz', NULL, NULL),
 (633, 'browndog636', '58@gmail.com', '2018-09-04 12:00:58', 'eacf7b6892fb9174bd31afee073529961741c4753d6eec498e52fead5b6a033d', NULL, 'male', 'بیرجند', 'گلستان', '68.5001', '53.3209', 'https://randomuser.me/api/portraits/med/women/91.jpg', '/img/incognito.png', '/img/incognito.png', '/img/incognito.png', '/img/incognito.png', 'short_info_text58', 18, '1949-03-25', 1, 0, 'boys', 40, 'آوینا', 'کریمی', NULL, NULL),
 (636, 'smallelephant906', '59@gmail.com', '2018-09-04 12:00:59', '019a8332fa4b9b5d1ac32f07684687366ddc59c74fa9068c5fe6c6f1bf3dfd61', NULL, 'female', 'botucatu', 'minas gerais', '140.9145', '35.7245', 'https://randomuser.me/api/portraits/med/women/62.jpg', '/img/incognito.png', '/img/incognito.png', '/img/incognito.png', '/img/incognito.png', 'short_info_text59', 18, '1965-12-26', 1, 1, 'girls', 50, 'gilcenira', 'silva', NULL, NULL),
-(637, 'Misha', '0660330233@ukr.net', '2018-10-07 18:00:00', '$2y$10$DQ5VDG2MWDHsmjPkPomUOO7CNUNKA5lk/ViiaeyiUfRVywEmY1xAa', 'q2XumWndu3wgI0aw0pgy1O3YlLTryeDy5Nqkt0twLmvdM3WyWqY9KwcuChWn', 'Male', 'Ukraine', 'Kiev', '30.462262', '50.469227', 'images/1539063624.jpg', '/img/incognito.png', 'images/1539096554.jpg', '/img/incognito.png', '/img/incognito.png', 'none', 28, '1977-10-10', 1, 0, 'Women', 0, 'Misha', 'Sarapii', '2018-09-26 06:38:27', '2018-10-09 11:49:14');
+(637, 'Misha', '0660330233@ukr.net', '2018-10-07 18:00:00', '$2y$10$DQ5VDG2MWDHsmjPkPomUOO7CNUNKA5lk/ViiaeyiUfRVywEmY1xAa', 'q2XumWndu3wgI0aw0pgy1O3YlLTryeDy5Nqkt0twLmvdM3WyWqY9KwcuChWn', 'Male', 'Ukraine', 'Kyiv', '30.462262', '50.469227', 'images/1539063624.jpg', '/img/incognito.png', 'images/1539096554.jpg', '/img/incognito.png', '/img/incognito.png', 'none', 16, '1977-10-10', 1, 0, 'Women', 0, 'Misha', 'Sarapii', '2018-09-26 06:38:27', '2018-10-21 07:33:08');
 
 -- --------------------------------------------------------
 
@@ -259,6 +303,15 @@ ALTER TABLE `interests`
   ADD PRIMARY KEY (`user_interest_id`);
 
 --
+-- Indexes for table `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `messages_sender_id_index` (`sender_id`),
+  ADD KEY `messages_receiver_id_index` (`receiver_id`),
+  ADD KEY `messages_sender_id_read_index` (`sender_id`,`read`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -298,7 +351,7 @@ ALTER TABLE `friends`
 -- AUTO_INCREMENT for table `guests`
 --
 ALTER TABLE `guests`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `ignores`
@@ -310,13 +363,19 @@ ALTER TABLE `ignores`
 -- AUTO_INCREMENT for table `interests`
 --
 ALTER TABLE `interests`
-  MODIFY `user_interest_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `user_interest_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`

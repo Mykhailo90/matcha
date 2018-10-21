@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Models\User;
 use App\Http\Models\Interest;
+use Illuminate\Support\Facades\Input;
 
 class AcquaintanceshipController extends Controller
 {
@@ -25,14 +26,25 @@ class AcquaintanceshipController extends Controller
      */
     public function index()
     {
-        $allUsersByDistance = User::orderByRaw('age ASC')->paginate(9);
+        $allUsersByDistance = User::orderByRaw('age ASC')->paginate(4);
         $allInterests = Interest::all();
 
+        if (Input::has('page')){
+            $page = Input::get('page');
+        } else {
+            $page = 1;
+        }
 
 //            dd($allUsersByDistance);
         return view('acquaintanceship', [
             'allInterests' => $allInterests,
             'allUsersByDistance' => $allUsersByDistance,
+            'page' => $page,
         ]);
+    }
+
+    public function listPartial(){
+        $allUsersByDistance = User::orderByRaw('age ASC')->paginate(4);
+        return view('page_details', compact(['allUsersByDistance']));
     }
 }

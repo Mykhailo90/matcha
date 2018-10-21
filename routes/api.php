@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->post('/start/message', 'TestController@postMessage');
+Route::middleware('auth:api')->post('/start/message', 'Test2Controller@postMessage');
 
 // Route::group(['prefix' => 'ws'], function(){
 	Route::get('check-auth', function(){
